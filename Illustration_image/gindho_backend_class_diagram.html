@@ -1,0 +1,187 @@
+
+<div id="backend-uml"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false, theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark, fontSize: '12px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#300000' : '#3d3d3a',
+    classText: dark ? '#300000' : '#3d3d3a',
+  },
+});
+const diagram = `classDiagram
+  class BaseEntity {
+    <<abstract>>
+    +UUID id
+    +LocalDateTime creeLe
+    +LocalDateTime misAJourLe
+    #prePersist()
+    #preUpdate()
+  }
+
+  class User {
+    +String nom
+    +String prenom
+    +String email
+    +String motDePasseHash
+    +Role role
+    +boolean actif
+    +List~RolePermission~ permissions
+  }
+
+  class RolePermission {
+    +UUID userId
+    +String permission
+    +String ressource
+    +String action
+  }
+
+  class Patient {
+    +String numeroPatient
+    +LocalDate dateNaissance
+    +String sexe
+    +String telephone
+    +String groupeSanguin
+    +String allergies
+    +String adresse
+  }
+
+  class Medecin {
+    +String numeroOrdre
+    +String specialisation
+    +String telephoneCabinet
+    +boolean disponible
+    +List~Disponibilite~ horaires
+  }
+
+  class Disponibilite {
+    +JourSemaine jour
+    +LocalTime heureDebut
+    +LocalTime heureFin
+    +boolean actif
+  }
+
+  class RendezVous {
+    +LocalDateTime dateHeureDebut
+    +LocalDateTime dateHeureFin
+    +StatutRDV statut
+    +String motif
+    +String notes
+  }
+
+  class DossierMedical {
+    +LocalDate dateConsultation
+    +String diagnostic
+    +String traitement
+    +String observations
+    +List~Ordonnance~ ordonnances
+  }
+
+  class Ordonnance {
+    +String medicament
+    +String posologie
+    +String duree
+    +LocalDate dateEmission
+  }
+
+  class AuditLog {
+    +String action
+    +String entite
+    +UUID entiteId
+    +String details
+    +String ipAdresse
+  }
+
+  class UserService {
+    <<service>>
+    +register(dto) User
+    +authenticate(email, pwd) TokenResponse
+    +updatePermissions(id, perms) void
+    +changeRole(id, role) void
+    +resetPassword(email) void
+  }
+
+  class PatientService {
+    <<service>>
+    +creer(dto) Patient
+    +rechercher(criteres) Page~Patient~
+    +mettreAJour(id, dto) Patient
+    +getDossier(patientId) DossierMedical
+    +archiver(id) void
+  }
+
+  class RendezVousService {
+    <<service>>
+    +prendreRDV(dto) RendezVous
+    +annuler(id, motif) void
+    +verifierConflits(medecinId, debut, fin) boolean
+    +getRDVsPatient(patientId) List~RendezVous~
+    +getRDVsMedecin(medecinId, date) List~RendezVous~
+  }
+
+  class UserDao {
+    <<interface>>
+    +findByEmail(email) Optional~User~
+    +existsByEmail(email) boolean
+    +save(user) User
+    +findById(id) Optional~User~
+  }
+
+  class RendezVousDao {
+    <<interface>>
+    +findConflits(medecinId, debut, fin) List~RendezVous~
+    +findByPatientId(id) List~RendezVous~
+    +findByMedecinAndDate(id, date) List~RendezVous~
+    +save(rdv) RendezVous
+  }
+
+  class JwtService {
+    <<component>>
+    -String secret
+    -long expirationMs
+    +generateToken(user) String
+    +validateToken(token) boolean
+    +extractEmail(token) String
+    +extractRole(token) Role
+  }
+
+  class RappelRDVScheduler {
+    <<scheduler>>
+    +envoyerRappels() void
+    -getRendezVousDans24h() List~RendezVous~
+  }
+
+  BaseEntity <|-- User
+  BaseEntity <|-- Patient
+  BaseEntity <|-- Medecin
+  BaseEntity <|-- RendezVous
+  BaseEntity <|-- DossierMedical
+  BaseEntity <|-- Ordonnance
+  BaseEntity <|-- AuditLog
+  BaseEntity <|-- Disponibilite
+
+  User "1" *-- "0..*" RolePermission
+  User "1" --> "0..1" Patient
+  User "1" --> "0..1" Medecin
+  Patient "1" *-- "0..*" RendezVous
+  Medecin "1" *-- "0..*" RendezVous
+  Medecin "1" *-- "0..*" Disponibilite
+  Patient "1" *-- "0..*" DossierMedical
+  DossierMedical "1" *-- "0..*" Ordonnance
+  RendezVous "1" --> "0..1" DossierMedical
+
+  UserService ..> UserDao : uses
+  PatientService ..> RendezVousDao : uses
+  RendezVousService ..> RendezVousDao : uses
+  UserService ..> JwtService : uses
+  RappelRDVScheduler ..> RendezVousDao : uses
+`;
+const { svg } = await mermaid.render('backend-uml-svg', diagram);
+document.getElementById('backend-uml').innerHTML = svg;
+</script>

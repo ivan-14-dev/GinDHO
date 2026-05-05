@@ -1,0 +1,44 @@
+package com.gindho.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Superclass;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "dossiers_medicaux")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Superclass
+public class DossierMedical extends BaseEntity {
+    @Column(name = "date_consultation")
+    private LocalDate dateConsultation;
+
+    @Column(length = 2000)
+    private String diagnostic;
+
+    @Column(length = 2000)
+    private String traitement;
+
+    @Column(length = 2000)
+    private String observations;
+
+    @OneToOne
+    @JoinColumn(name = "rendez_vous_id")
+    private RendezVous rendezVous;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
+
+    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ordonnance> ordonnances = new ArrayList<>();
+}

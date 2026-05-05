@@ -1,0 +1,219 @@
+
+<div id="javafx-uml"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false, theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark, fontSize: '12px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#300000' : '#3d3d3a',
+  },
+});
+const diagram = `classDiagram
+  class GinDHOApp {
+    <<Application>>
+    +start(Stage) void
+    +main(String[]) void
+    -loadFXML(String) Parent
+  }
+
+  class SessionManager {
+    <<singleton>>
+    -static SessionManager instance
+    -String jwtToken
+    -UserDto currentUser
+    -Role currentRole
+    +getInstance() SessionManager
+    +setToken(token) void
+    +getToken() String
+    +isAuthenticated() boolean
+    +logout() void
+  }
+
+  class ApiClient {
+    <<service>>
+    -HttpClient httpClient
+    -String baseUrl
+    -ObjectMapper mapper
+    +get(path, type) T
+    +post(path, body, type) T
+    +put(path, body, type) T
+    +delete(path) void
+    -buildRequest(path, method) HttpRequest
+    -addAuthHeader(builder) void
+  }
+
+  class LoginController {
+    <<controller>>
+    -TextField emailField
+    -PasswordField passwordField
+    -Label errorLabel
+    -Button loginBtn
+    -AuthApiDao authDao
+    +initialize() void
+    +onLogin() void
+    -handleLoginSuccess(token) void
+    -redirectByRole(role) void
+  }
+
+  class DashboardController {
+    <<controller>>
+    -BorderPane rootPane
+    -VBox sidebar
+    -Label userNameLabel
+    -SessionManager session
+    +initialize() void
+    +loadModule(String fxml) void
+    -buildSidebar(role) void
+    +onLogout() void
+  }
+
+  class PatientController {
+    <<controller>>
+    -TableView~PatientDto~ tableView
+    -TextField searchField
+    -Button addBtn
+    -PatientApiDao patientDao
+    +initialize() void
+    +onSearch() void
+    +onAdd() void
+    +onEdit(patient) void
+    -loadPatients() void
+  }
+
+  class MedecinController {
+    <<controller>>
+    -TableView~MedecinDto~ tableView
+    -CalendarView agendaView
+    -MedecinApiDao medecinDao
+    +initialize() void
+    +loadAgenda(date) void
+    +onSelectMedecin(id) void
+  }
+
+  class RendezVousController {
+    <<controller>>
+    -CalendarView calendarView
+    -ComboBox~MedecinDto~ medecinBox
+    -DatePicker datePicker
+    -RendezVousApiDao rdvDao
+    +initialize() void
+    +onPrendreRDV() void
+    +onAnnuler(rdv) void
+    -checkConflits(medecinId, debut, fin) boolean
+  }
+
+  class DossierController {
+    <<controller>>
+    -TextArea diagnosticArea
+    -TextArea traitementArea
+    -ListView~OrdonnanceDto~ ordList
+    -DossierApiDao dossierDao
+    +initialize() void
+    +onSave() void
+    +onAddOrdonnance() void
+  }
+
+  class AuthApiDao {
+    <<dao>>
+    -ApiClient client
+    +login(email, pwd) TokenResponse
+    +register(dto) UserDto
+    +refreshToken(token) TokenResponse
+  }
+
+  class PatientApiDao {
+    <<dao>>
+    -ApiClient client
+    +findAll(page, size) Page~PatientDto~
+    +findById(id) PatientDto
+    +search(nom) List~PatientDto~
+    +create(dto) PatientDto
+    +update(id, dto) PatientDto
+    +getDossier(id) DossierDto
+  }
+
+  class MedecinApiDao {
+    <<dao>>
+    -ApiClient client
+    +findAll() List~MedecinDto~
+    +findById(id) MedecinDto
+    +getDisponibilites(id) List~DisponibiliteDto~
+    +getAgenda(id, date) List~RendezVousDto~
+  }
+
+  class RendezVousApiDao {
+    <<dao>>
+    -ApiClient client
+    +findByPatient(id) List~RendezVousDto~
+    +findByMedecin(id) List~RendezVousDto~
+    +create(dto) RendezVousDto
+    +annuler(id, motif) void
+    +checkConflits(medecinId, d, f) boolean
+  }
+
+  class DossierApiDao {
+    <<dao>>
+    -ApiClient client
+    +findByPatient(id) DossierDto
+    +create(dto) DossierDto
+    +addOrdonnance(dossierId, dto) OrdonnanceDto
+  }
+
+  class WebSocketClient {
+    <<service>>
+    -StompSession session
+    -String wsUrl
+    +connect(token) void
+    +subscribe(topic, handler) void
+    +disconnect() void
+    -onNotification(payload) void
+  }
+
+  class TaskRunner {
+    <<utility>>
+    +static run(Callable task, Consumer onSuccess, Consumer onError) void
+    -ExecutorService executor
+  }
+
+  GinDHOApp --> SessionManager
+  GinDHOApp --> LoginController
+
+  LoginController --> AuthApiDao
+  LoginController --> SessionManager
+  LoginController --> DashboardController
+
+  DashboardController --> SessionManager
+  DashboardController --> PatientController
+  DashboardController --> MedecinController
+  DashboardController --> RendezVousController
+  DashboardController --> DossierController
+
+  PatientController --> PatientApiDao
+  PatientController --> TaskRunner
+  MedecinController --> MedecinApiDao
+  MedecinController --> TaskRunner
+  RendezVousController --> RendezVousApiDao
+  RendezVousController --> MedecinApiDao
+  RendezVousController --> TaskRunner
+  DossierController --> DossierApiDao
+  DossierController --> TaskRunner
+
+  AuthApiDao --> ApiClient
+  PatientApiDao --> ApiClient
+  MedecinApiDao --> ApiClient
+  RendezVousApiDao --> ApiClient
+  DossierApiDao --> ApiClient
+
+  ApiClient --> SessionManager
+  WebSocketClient --> SessionManager
+  DashboardController --> WebSocketClient
+`;
+const { svg } = await mermaid.render('javafx-uml-svg', diagram);
+document.getElementById('javafx-uml').innerHTML = svg;
+</script>
