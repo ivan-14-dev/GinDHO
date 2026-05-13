@@ -27,7 +27,7 @@ public class RendezVousController {
     }
 
     private void handleCalendar() {
-        // TODO: Implement calendar view
+        //TODO: Implement calendar view
         showAlert("Info", "Vue calendrier en cours de développement", Alert.AlertType.INFORMATION);
     }
 

@@ -25,7 +25,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(AuthenticationRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByUsername(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
@@ -58,7 +58,7 @@ public class UserService {
                 )
         );
 
-        var user = userRepository.findByEmail(request.getEmail())
+        var user = userRepository.findByUsername(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         var jwtToken = jwtService.generateToken(user, user.getRole().name());
@@ -86,7 +86,7 @@ public class UserService {
     }
 
     public void resetPassword(String email) {
-        var user = userRepository.findByEmail(email)
+        var user = userRepository.findByUsername(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 

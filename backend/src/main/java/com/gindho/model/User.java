@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Superclass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Superclass
 public abstract class User extends BaseEntity {
     @Column(nullable = false)
     private String nom;
@@ -39,4 +37,16 @@ public abstract class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePermission> permissions = new ArrayList<>();
+
+    public String getUsername() {
+        return email;
+    }
+
+    public String getPassword() {
+        return motDePasseHash;
+    }
+
+    public boolean isActive() {
+        return actif;
+    }
 }

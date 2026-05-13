@@ -1,5 +1,6 @@
 package com.gindho.security;
 
+import com.gindho.model.User;
 import com.gindho.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,15 +20,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.gindho.model.User user = userRepository.findByEmail(email)
+        com.gindho.model.User user = userRepository.findByUsername(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return new User(
-                user.getEmail(),
-                user.getMotDePasseHash(),
-                user.isActif(),
+                user.getUsername(),
+                user.getPassword(),
+                user.isActive(),
                 true, true, true,
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
         );
     }
 }
+

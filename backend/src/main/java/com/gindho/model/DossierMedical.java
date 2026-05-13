@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Superclass;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Superclass
 public class DossierMedical extends BaseEntity {
     @Column(name = "date_consultation")
     private LocalDate dateConsultation;

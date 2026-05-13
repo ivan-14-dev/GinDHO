@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Superclass;
 
 import java.time.LocalDate;
 
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Superclass
 public class Ordonnance extends BaseEntity {
     private String medicament;
     private String posologie;

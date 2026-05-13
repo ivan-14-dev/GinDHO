@@ -35,7 +35,7 @@ public class ApiController {
     }
 
     @GetMapping("/patients")
-    public ResponseEntity<Page<PatientDto>> searchPatients(
+    public ResponseEntity<Page<Patient>> searchPatients(
             @RequestParam(required = false) String nom,
             Pageable pageable) {
         return ResponseEntity.ok(patientService.rechercher(nom, pageable));
