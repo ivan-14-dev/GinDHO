@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.gindho.client.controller.LoginController"
+           stylesheets="@../styles/style.css">
+
+    <HBox spacing="0" alignment="CENTER" styleClass="login-root">
+
+        <!-- Panneau Gauche - Branding GinDHO -->
+        <VBox fx:id="leftPanel" styleClass="login-left-panel"
+              alignment="CENTER" spacing="30"
+              prefWidth="500" HBox.hgrow="ALWAYS">
+
+            <VBox alignment="CENTER" spacing="15">
+                <!-- Logo GinDHO -->
+                <StackPane>
+                    <Circle fx:id="logoCircle" radius="55"
+                            styleClass="logo-circle"/>
+                    <Label fx:id="logoText" text="G"
+                           styleClass="logo-letter"/>
+                </StackPane>
+
+                <VBox alignment="CENTER" spacing="5">
+                    <Label fx:id="systemName" text="GinDHO"
+                           styleClass="login-system-name"/>
+                    <Label fx:id="systemSubtitle"
+                           text="Gestion Intelligente D'Hôpitaux"
+                           styleClass="login-system-subtitle"/>
+                </VBox>
+            </VBox>
+
+            <!-- Features -->
+            <VBox spacing="12" alignment="CENTER"
+                  maxWidth="320" styleClass="login-features-box">
+                <Label text="✓ Gestion des patients" styleClass="feature-item"/>
+                <Label text="✓ Planification des rendez-vous" styleClass="feature-item"/>
+                <Label text="✓ Dossiers médicaux électroniques" styleClass="feature-item"/>
+                <Label text="✓ Facturation et assurance" styleClass="feature-item"/>
+                <Label text="✓ Analyses et statistiques" styleClass="feature-item"/>
+            </VBox>
+
+            <!-- Bottom -->
+            <VBox alignment="CENTER" spacing="8" styleClass="login-bottom-info">
+                <Label text="© 2024 GinDHO. Tous droits réservés."
+                       styleClass="copyright"/>
+                <HBox fx:id="languageSelector" alignment="CENTER" spacing="10"/>
+            </VBox>
+
+        </VBox>
+
+        <!-- Panneau Droit - Formulaire -->
+        <VBox fx:id="rightPanel" styleClass="login-right-panel"
+              alignment="CENTER" spacing="0"
+              prefWidth="500" HBox.hgrow="ALWAYS">
+
+            <VBox fx:id="loginForm" styleClass="login-form-container"
+                  spacing="22" maxWidth="400"
+                  alignment="CENTER_LEFT">
+
+                <!-- Header -->
+                <VBox spacing="6">
+                    <Label fx:id="welcomeLabel" text="Bienvenue"
+                           styleClass="login-welcome"/>
+                    <Label fx:id="signInLabel"
+                           text="Connectez-vous à votre compte"
+                           styleClass="login-signin"/>
+                </VBox>
+
+                <!-- Email -->
+                <VBox spacing="6">
+                    <Label fx:id="emailLabel" text="Email professionnel"
+                           styleClass="login-field-label"/>
+                    <TextField fx:id="emailField"
+                               promptText="admin@gindho.fr"
+                               styleClass="login-input"/>
+                </VBox>
+
+                <!-- Password -->
+                <VBox spacing="6">
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label fx:id="passwordLabel" text="Mot de passe"
+                               styleClass="login-field-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Hyperlink fx:id="forgotPassword"
+                                   text="Oublié ?"
+                                   styleClass="login-forgot-link"/>
+                    </HBox>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="••••••••"
+                                   styleClass="login-input"/>
+                </VBox>
+
+                <!-- Remember me -->
+                <CheckBox fx:id="rememberMe"
+                          text="Rester connecté une semaine"
+                          styleClass="login-remember"/>
+
+                <!-- Continue button -->
+                <Button fx:id="continueButton" text="Se connecter"
+                        styleClass="login-continue-btn"
+                        maxWidth="Infinity"/>
+
+                <!-- Divider -->
+                <HBox alignment="CENTER" spacing="12"
+                      styleClass="login-divider-box">
+                    <Region styleClass="login-divider-line" HBox.hgrow="ALWAYS"/>
+                    <Label text="ou" styleClass="login-divider-text"/>
+                    <Region styleClass="login-divider-line" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <!-- SSO -->
+                <Hyperlink fx:id="ssoLink"
+                           text="Utiliser la connexion unique (SSO)"
+                           styleClass="login-sso-link"/>
+
+                <!-- Security badge -->
+                <HBox alignment="CENTER" spacing="6"
+                      styleClass="login-security-badge">
+                    <Label text="🔒" styleClass="login-security-icon"/>
+                    <Label text="Connexion sécurisée SSL 256-bit"
+                           styleClass="login-security-text"/>
+                </HBox>
+
+            </VBox>
+
+        </VBox>
+
+    </HBox>
+
+</StackPane>

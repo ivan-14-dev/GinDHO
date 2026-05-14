@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gindho.client.controller.DashboardController" stylesheets="@../styles/style.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <spacing>20</spacing>
+    
+    <HBox>
+        <Label fx:id="userNameLabel" text="Utilisateur" styleClass="header-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="userRoleLabel" text="Rôle: N/A" styleClass="role-admin"/>
+    </HBox>
+    
+    <Separator/>
+    
+    <Label text="Tableau de bord" styleClass="section-label"/>
+    
+    <GridPane fx:id="widgetsGrid" hgap="15" vgap="15" VBox.vgrow="ALWAYS"/>
+    
+    <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-button"/>
+</VBox>

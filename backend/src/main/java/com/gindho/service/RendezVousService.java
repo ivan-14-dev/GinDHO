@@ -75,6 +75,25 @@ public class RendezVousService {
     }
 
     private RendezVousDto convertToDto(RendezVous rdv) {
+        String patientNom = "";
+        String medecinNom = "";
+        Long patientId = null;
+        Long medecinId = null;
+        
+        if (rdv.getPatient() != null) {
+            patientId = rdv.getPatient().getId();
+            if (rdv.getPatient().getUser() != null) {
+                patientNom = rdv.getPatient().getUser().getNom() + " " + rdv.getPatient().getUser().getPrenom();
+            }
+        }
+        
+        if (rdv.getMedecin() != null) {
+            medecinId = rdv.getMedecin().getId();
+            if (rdv.getMedecin().getUser() != null) {
+                medecinNom = rdv.getMedecin().getUser().getNom() + " " + rdv.getMedecin().getUser().getPrenom();
+            }
+        }
+        
         return RendezVousDto.builder()
                 .id(rdv.getId())
                 .dateHeureDebut(rdv.getDateHeureDebut())
@@ -82,10 +101,10 @@ public class RendezVousService {
                 .statut(rdv.getStatut())
                 .motif(rdv.getMotif())
                 .notes(rdv.getNotes())
-                .patientId(rdv.getPatient().getId())
-                .medecinId(rdv.getMedecin().getId())
-                .patientNom(rdv.getPatient().getNom() + " " + rdv.getPatient().getPrenom())
-                .medecinNom(rdv.getMedecin().getNom() + " " + rdv.getMedecin().getPrenom())
+                .patientId(patientId)
+                .medecinId(medecinId)
+                .patientNom(patientNom)
+                .medecinNom(medecinNom)
                 .build();
     }
 }

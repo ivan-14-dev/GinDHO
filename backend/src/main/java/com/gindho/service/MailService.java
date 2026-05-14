@@ -26,14 +26,26 @@ public class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
             Context context = new Context();
-            context.setVariable("patientNom", rdv.getPatient().getNom() + " " + rdv.getPatient().getPrenom());
-            context.setVariable("medecinNom", rdv.getMedecin().getNom() + " " + rdv.getMedecin().getPrenom());
+            String patientNom = "";
+            String medecinNom = "";
+            
+            if (rdv.getPatient() != null && rdv.getPatient().getUser() != null) {
+                patientNom = rdv.getPatient().getUser().getNom() + " " + rdv.getPatient().getUser().getPrenom();
+            }
+            if (rdv.getMedecin() != null && rdv.getMedecin().getUser() != null) {
+                medecinNom = rdv.getMedecin().getUser().getNom() + " " + rdv.getMedecin().getUser().getPrenom();
+            }
+            
+            context.setVariable("patientNom", patientNom);
+            context.setVariable("medecinNom", medecinNom);
             context.setVariable("dateRdv", rdv.getDateHeureDebut());
             context.setVariable("motif", rdv.getMotif());
 
             String htmlContent = templateEngine.process("rappel-email", context);
 
-            helper.setTo(rdv.getPatient().getUser().getEmail());
+            if (rdv.getPatient() != null && rdv.getPatient().getUser() != null) {
+                helper.setTo(rdv.getPatient().getUser().getEmail());
+            }
             helper.setSubject("Rappel de rendez-vous médical");
             helper.setText(htmlContent, true);
 

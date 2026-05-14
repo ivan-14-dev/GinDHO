@@ -30,6 +30,9 @@ public class PatientController {
 
     @FXML
     private Button refreshBtn;
+    
+    @FXML
+    private Button backBtn;
 
     private final ApiService apiService = new ApiService();
     private final ObservableList<PatientRow> patientData = FXCollections.observableArrayList();
@@ -41,9 +44,18 @@ public class PatientController {
         
         addBtn.setOnAction(event -> handleAdd());
         refreshBtn.setOnAction(event -> loadPatients());
+        backBtn.setOnAction(event -> handleBack());
         searchField.textProperty().addListener((obs, oldVal, newVal) -> searchPatients(newVal));
         
         loadPatients();
+    }
+
+    private void handleBack() {
+        try {
+            GinDhoClient.showDashboardView();
+        } catch (Exception e) {
+            showAlert("Erreur", "Impossible de retourner au tableau de bord", Alert.AlertType.ERROR);
+        }
     }
 
     private void setupTableColumns() {

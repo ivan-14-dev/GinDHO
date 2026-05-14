@@ -1,6 +1,5 @@
 package com.gindho.security;
 
-import com.gindho.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

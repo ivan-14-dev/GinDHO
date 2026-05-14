@@ -1,0 +1,14 @@
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/components/WidgetCard.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/controller/DashboardController.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/module-info.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/dragdrop/DragAndDropManager.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/animation/AnimationManager.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/service/ApiService.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/controller/PatientController.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/controller/RendezVousController.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/controller/LoginController.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/controller/MedecinController.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/model/LoginRequest.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/i18n/I18nManager.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/GinDhoClient.java
+/media/ivan/Ultimate/Ivan/script/common/GinDHO/javafx-client/src/main/java/com/gindho/client/model/AuthResponse.java

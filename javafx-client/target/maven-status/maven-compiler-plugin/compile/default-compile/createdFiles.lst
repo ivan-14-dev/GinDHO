@@ -1,0 +1,17 @@
+com/gindho/client/animation/AnimationManager.class
+com/gindho/client/controller/DashboardController.class
+com/gindho/client/controller/PatientController.class
+com/gindho/client/controller/LoginController.class
+com/gindho/client/model/AuthResponse.class
+com/gindho/client/controller/RendezVousController.class
+com/gindho/client/components/WidgetCard.class
+module-info.class
+com/gindho/client/service/ApiService.class
+com/gindho/client/GinDhoClient.class
+com/gindho/client/controller/MedecinController$Medecin.class
+com/gindho/client/controller/PatientController$PatientRow.class
+com/gindho/client/model/LoginRequest.class
+com/gindho/client/i18n/I18nManager.class
+com/gindho/client/controller/MedecinController.class
+com/gindho/client/dragdrop/DragAndDropManager.class
+com/gindho/client/controller/RendezVousController$RendezVousRow.class

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gindho.client.controller.RendezVousController" stylesheets="@../styles/style.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <spacing>15</spacing>
+    
+    <Label text="Gestion des Rendez-vous" styleClass="section-label"/>
+    
+    <HBox spacing="10">
+        <Button fx:id="calendarBtn" text="Calendrier" styleClass="primary-button"/>
+        <Button fx:id="newRdvBtn" text="Nouveau RDV" styleClass="success-button"/>
+        <Button fx:id="refreshBtn" text="Actualiser"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="backBtn" text="Retour"/>
+    </HBox>
+    
+    <TableView fx:id="rendezVousTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID"/>
+            <TableColumn fx:id="dateColumn" text="Date"/>
+            <TableColumn fx:id="heureColumn" text="Heure"/>
+            <TableColumn fx:id="patientColumn" text="Patient"/>
+            <TableColumn fx:id="medecinColumn" text="Médecin"/>
+            <TableColumn fx:id="statutColumn" text="Statut"/>
+        </columns>
+    </TableView>
+</VBox>

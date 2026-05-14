@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface RendezVousRepository extends JpaRepository<RendezVous, Long> {
@@ -21,6 +20,6 @@ public interface RendezVousRepository extends JpaRepository<RendezVous, Long> {
     
     List<RendezVous> findByDateHeureDebutBetweenAndStatut(LocalDateTime debut, LocalDateTime fin, StatutRDV statut);
     
-    Optional<RendezVous> findByMedecinIdAndDateHeureDebutBetweenAndStatutNot(
+    List<RendezVous> findByMedecinIdAndDateHeureDebutBetweenAndStatutNot(
         Long medecinId, LocalDateTime debut, LocalDateTime fin, StatutRDV statut);
 }

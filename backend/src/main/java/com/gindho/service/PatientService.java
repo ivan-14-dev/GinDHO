@@ -38,7 +38,7 @@ public class PatientService {
     public Page<Patient> rechercher(String criteres, Pageable pageable) {
         if (criteres != null && !criteres.isEmpty()) {
             return patientRepository.findByNomContainingOrPrenomContainingOrNumeroPatientContaining(
-                    criteres, criteres, criteres, pageable);
+                    criteres, pageable);
         }
         return patientRepository.findAll(pageable);
     }

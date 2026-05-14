@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gindho.client.controller.PatientController" stylesheets="@../styles/style.css">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <spacing>15</spacing>
+    
+    <Label text="Gestion des Patients" styleClass="section-label"/>
+    
+    <TextField fx:id="searchField" promptText="Rechercher..."/>
+    
+    <TableView fx:id="tableView" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="nomColumn" text="Nom"/>
+            <TableColumn fx:id="numeroColumn" text="Numéro"/>
+            <TableColumn fx:id="telephoneColumn" text="Téléphone"/>
+        </columns>
+    </TableView>
+    
+    <HBox spacing="10">
+        <Button fx:id="addBtn" text="Ajouter" styleClass="primary-button"/>
+        <Button fx:id="refreshBtn" text="Actualiser"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="backBtn" text="Retour"/>
+    </HBox>
+</VBox>

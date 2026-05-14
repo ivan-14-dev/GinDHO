@@ -2,20 +2,26 @@ package com.gindho.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String nom;
 
@@ -46,7 +52,32 @@ public abstract class User extends BaseEntity {
         return motDePasseHash;
     }
 
-    public boolean isActive() {
-        return actif;
-    }
+public boolean isActive() {
+         return actif;
+     }
+
+     @Override
+     public Collection<? extends GrantedAuthority> getAuthorities() {
+         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+     }
+
+     @Override
+     public boolean isEnabled() {
+         return actif;
+     }
+
+     @Override
+     public boolean isAccountNonExpired() {
+         return true;
+     }
+
+     @Override
+     public boolean isAccountNonLocked() {
+         return true;
+     }
+
+     @Override
+     public boolean isCredentialsNonExpired() {
+         return true;
+     }
 }

@@ -2,6 +2,7 @@ package com.gindho.client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,31 +14,36 @@ public class GinDhoClient extends Application {
     private static String authToken;
     private static String userRole;
     private static Long userId;
+    private static String userEmail;
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        stage.setTitle("GinDHO - Système Médical");
-        
+        stage.setTitle("GinDHO - Gestion Intelligente D'Hôpitaux");
+
         // Load login view
         showLoginView();
-        
-        stage.setWidth(1024);
-        stage.setHeight(768);
-        stage.setMinWidth(800);
+
+        stage.setWidth(1100);
+        stage.setHeight(700);
+        stage.setMinWidth(900);
         stage.setMinHeight(600);
         stage.show();
     }
 
     public static void showLoginView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GinDhoClient.class.getResource("/views/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(GinDhoClient.class.getResource("/styles/style.css").toExternalForm());
         primaryStage.setScene(scene);
     }
 
     public static void showDashboardView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GinDhoClient.class.getResource("/views/dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(GinDhoClient.class.getResource("/styles/style.css").toExternalForm());
         primaryStage.setScene(scene);
     }
 
@@ -85,6 +91,14 @@ public class GinDhoClient extends Application {
 
     public static void setUserId(Long id) {
         userId = id;
+    }
+
+    public static String getUserEmail() {
+        return userEmail;
+    }
+
+    public static void setUserEmail(String email) {
+        userEmail = email;
     }
 
     public static void main(String[] args) {

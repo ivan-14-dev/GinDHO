@@ -4,6 +4,7 @@ import com.gindho.dto.AuthenticationRequest;
 import com.gindho.dto.AuthenticationResponse;
 import com.gindho.dto.PatientDto;
 import com.gindho.dto.RendezVousDto;
+import com.gindho.model.Patient;
 import com.gindho.service.PatientService;
 import com.gindho.service.RendezVousService;
 import com.gindho.service.UserService;
